@@ -1,6 +1,6 @@
 const httpOperations = require('./operations');
 
-exports.helloHttp = (req, res) => {
+exports.articleHttp = (req, res) => {
   res.setHeader('Content-Type', 'application/json');
 
   (async () => {
