@@ -1,5 +1,6 @@
 module.exports = class Article {
-  constructor(title, author, body) {
+  constructor({ id, title, author, body }) {
+    this.id = id;
     this.title = title;
     this.author = author;
     this.body = body;
@@ -7,10 +8,11 @@ module.exports = class Article {
   }
 
   toJSON() {
-    const data = { title: this.title, author: this.author, body: this.body, createtime: this.createtime };
+    // don't include the id at all if it hasn't been set
+    const document = { title: this.title, author: this.author, body: this.body, createtime: this.createtime };
     if (this.id) {
-      data.id = this.id;
+      document.id = this.id;
     }
-    return data;
+    return document;
   }
 }

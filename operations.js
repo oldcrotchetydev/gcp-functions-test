@@ -17,12 +17,12 @@ module.exports.get = async function(req) {
 
   if (! data.id) {
     // get all articles
-    const all = await articleStore.getAll();
+    const all = await articleStore.readAll();
     return { success: true, document: all };
   } else {
     // get a specific article
-    const document = await articleStore.get(data.id);
-    return { success: true, document: document };
+    const article = await articleStore.read(data.id);
+    return { success: true, article: article.toJSON() };
   }
 }
 
@@ -37,9 +37,21 @@ module.exports.post = async function(req) {
     return generateError('"body" is required');
   }
 
-  const article = new Article(data.title, data.author, data.body);
-  const document = await articleStore.save(article);
-  return { success: true, id: document.id };
+  const article = new Article({ title: data.title, author: data.author, body: data.body });
+  await articleStore.create(article);
+  return { success: true, id: article.id };
+}
+
+module.exports.put = async function(req) {
+  const data = (req.body) || {};
+
+  if (! data.id) {
+    return generateError('"id" is required');
+  }
+
+  const article = new Article({ id: data.id, title: data.title, author: data.author, body: data.body });
+  await articleStore.update(article);
+  return { success: true, article: article.toJSON() };
 }
 
 function generateError(message) {

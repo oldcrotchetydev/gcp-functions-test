@@ -12,6 +12,10 @@ exports.helloHttp = (req, res) => {
       const result = await httpOperations.get(req);
       res.send(JSON.stringify(result));
     }
+    if (req.method === 'PUT') {
+      const result = await httpOperations.put(req);
+      res.send(JSON.stringify(result));
+    }
     if (req.method === 'DELETE') {
       const result = await httpOperations.delete(req);
       res.send(JSON.stringify(result));
