@@ -18,7 +18,7 @@ module.exports.get = async function(req) {
   if (! data.id) {
     // get all articles
     const all = await articleStore.readAll();
-    return { success: true, document: all };
+    return { success: true, articles: all };
   } else {
     // get a specific article
     const article = await articleStore.read(data.id);
