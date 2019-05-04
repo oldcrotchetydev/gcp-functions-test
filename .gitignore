@@ -61,5 +61,7 @@ typings/
 public
 yarn-error.log
 
+/scripts/
+
 # deploylocal.sh
 # testlocal.sh
